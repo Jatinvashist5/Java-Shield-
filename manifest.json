@@ -1,0 +1,10 @@
+{
+  "type": "preload-native",
+  "name": "JavaShield",
+  "author": "NexCaise & DXRK",
+  "version": "1.0.0",
+  "entry": "libJavaShield.so",
+  "minecraft_versions": [],
+  "overwrite_files": [],
+  "overwrite_folders": []
+}
