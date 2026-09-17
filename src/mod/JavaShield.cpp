@@ -32,9 +32,12 @@ void registerMouseOnce() {
 bool requestedBlock() noexcept {
     if (g_clientInstance) {
         Player* localPlayer = g_clientInstance->getLocalPlayer();
-        // Java Feature: Prevent auto-shielding or blocking while riding a horse / mount
-        if (localPlayer && localPlayer->isRiding()) {
-            return false; 
+        // Safe Java Feature Fix: Query riding state through metadata maps to satisfy missing SDK structures
+        if (localPlayer) {
+            bool isRidingEntity = SynchedActorDataAccess::getActorFlag(localPlayer->entityContext, ActorFlags::Riding);
+            if (isRidingEntity) {
+                return false;
+            }
         }
     }
     return (gTouchToggle.load(std::memory_order_relaxed) || gMouseRightDown.load(std::memory_order_relaxed));
